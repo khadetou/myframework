@@ -21,8 +21,8 @@ class Controller
     public function view($view, $data = [])
     {
         //check if view exist 
-        if (file_exists('../app/view/' . $view . 'php')) {
-            require_once '../app/view/' . $view . 'php';
+        if (file_exists('../app/views/' . $view . '.php')) {
+            require_once '../app/views/' . $view . '.php';
         } else {
             //View does not exist 
             die("View does not exist");
