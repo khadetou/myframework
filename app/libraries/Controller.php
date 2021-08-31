@@ -11,7 +11,7 @@ class Controller
     public function model($model)
     {
         //Require model File
-        require_once '../app/models' . $model . '.php';
+        require_once '../app/models/' . $model . '.php';
 
         //Instaciate model
         return new $model();
