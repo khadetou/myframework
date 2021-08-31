@@ -1,12 +1,12 @@
 <?php
-class Pages
+class Pages extends Controller
 {
     public function __construct()
     {
     }
     public function index()
     {
-        echo "This is the index page";
+        $this->view('Hello');
     }
     public function about($id)
     {
