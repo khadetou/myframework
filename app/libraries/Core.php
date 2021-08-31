@@ -20,17 +20,33 @@ class Core
 
 
         //Find the corresponding method in controller class
-        if (file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
+
+        if (isset($url[0]) && file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
             $this->currentController = ucwords($url[0]);
             //unset 0 index
             unset($url[0]);
         }
+
 
         //Require the controller
         require_once '../app/controllers/' . $this->currentController . '.php';
 
         //Instanciate it
         $this->currentController = new $this->currentController;
+
+        //The check the second part of the url
+        if (isset($url[1]) && method_exists($this->currentController, $url[1])) {
+            $this->currentMethod = $url[1];
+
+            //unset $url[1]
+            unset($url[1]);
+        }
+
+        //Get params
+        $this->params = $url ? array_values($url) : [];
+
+        //Call a callback with array of params
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
     }
 
 
@@ -41,8 +57,6 @@ class Core
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
             return $url;
-        } else {
-            return $url = [""];
         }
     }
 }
