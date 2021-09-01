@@ -8,4 +8,11 @@ class Post
     {
         $this->db = new Database;
     }
+
+    public function getPost()
+    {
+        $this->db->query("SELECT * FROM post");
+
+        return $this->db->resultSet();
+    }
 }
